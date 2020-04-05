@@ -11,6 +11,9 @@ class Backup extends Model
     use Notifiable;
 
     protected $fillable = [
-
+        'name',
+        'size',
+        'user_id'
     ];
 }
+

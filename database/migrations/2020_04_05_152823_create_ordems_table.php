@@ -15,6 +15,13 @@ class CreateOrdemsTable extends Migration
     {
         Schema::create('ordems', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->text('problema');
+            $table->text('solucao');
+            $table->enum('avaliacao', ['bom','otimo','medio','ruim','pessimo']);
+            $table->text('feedback');
+            $table->enum('type',['revisao','problema']);
             $table->timestamps();
         });
     }

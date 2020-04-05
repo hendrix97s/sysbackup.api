@@ -11,6 +11,14 @@ class Adress extends Model
     use Notifiable;
 
     protected $fillable = [
-
+        'rua',
+        'cidade',
+        'uf',
+        'cep',
+        'numero',
+        'complemento',
+        'contato'
     ];
+
+
 }
