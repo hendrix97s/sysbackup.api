@@ -6,21 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class BackupFormRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -34,7 +24,11 @@ class BackupFormRequest extends FormRequest
     {
         return [
             'name.required' => 'O campo nome é de preenchimento obrigatório',
+            'name.min' => 'Quantidade minima de caracteres: 3',
+            'name.max' => 'Quantidade maxima de caracteres: 300',
             'size.required' => 'O campo size deve ser preenchido',
+            'size.min' => 'Quantidade minima de caracteres: 3',
+            'size.max' => 'Quantidade maxima de caracteres: 100',
             'user_id.required' => 'o campo user_id deve ser preenchido'
         ];
     }
