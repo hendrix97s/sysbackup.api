@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBackupsTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateBackupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('backups', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('code')->unique();
             $table->string('name');
-            $table->string('size');
-            $table->string('path');
-            $table->string('hour_backup');
-            $table->unsignedBigInteger('clinic_id');
-            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('cascade');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateBackupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('backups');
+        Schema::dropIfExists('admins');
     }
 }

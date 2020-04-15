@@ -24,9 +24,13 @@ class OrdemFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
+            'code' => 'unique:ordens',
+            'admin_id' => 'required',
+            'clinic_id' => 'required',
             'problema' => 'required|min:10|max:300',
             'solucao' => 'required|min:10|max:300',
+            'avaliacao' => 'required|min:10|max:300',
+            'feedback' => 'required|min:10|max:300',
             'type' => 'required|min:3|max:10'
         ];
     }
@@ -34,18 +38,18 @@ class OrdemFormRequest extends FormRequest
     public function messages()
     {
         return  [
-            'user_id.reqired' => 'Preenchimento obrigatório!',
-            'user_id.min' => 'Deve conter mais de 3 caracteres',
-            'user_id.max' => 'Deve conter mais de 300 caracteres',
-            'problema.required' => 'preenchimento obrigatório',
+            'code.unique' => 'Codigo já existente',
+            'admin_id.required' => 'Campo obrigatório!',
+            'clinic_id.required' => 'Campo obrigatório!',
+            'problema.required' => 'Campo obrigatório',
             'problema.min' => 'Deve conter mais de 3 caracteres',
             'problema.max' => 'Deve conter mais de 300 caracteres',
-            'solucao.required' => 'Preenchimento obrigatório',
+            'solucao.required' => 'Campo obrigatório',
             'solucao.min' => 'Deve conter mais de 3 caracteres',
             'solucao.max' => 'Deve conter mais de 300 caracteres',
-            'type.required' => 'Preenchimento obrigatório',
+            'type.required' => 'Campo obrigatório',
             'type.min' => 'Deve conter mais de 3 caracteres',
-            'type.max' => 'Deve conter mais de 10 caracteres'
+            'type.max' => 'Deve conter menos de 10 caracteres'
         ];
     }
 }

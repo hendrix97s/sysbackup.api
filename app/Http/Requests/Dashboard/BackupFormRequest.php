@@ -16,20 +16,29 @@ class BackupFormRequest extends FormRequest
         return [
             'name'  => 'required|min:3|max:300',
             'size'  => 'required|min:3|max:100',
-            'user_id' => 'required'
+            'path'  => 'required|min:50|max:180',
+            'hour_backup'  => 'required',
+            'clinic_id' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome é de preenchimento obrigatório',
-            'name.min' => 'Quantidade minima de caracteres: 3',
-            'name.max' => 'Quantidade maxima de caracteres: 300',
-            'size.required' => 'O campo size deve ser preenchido',
-            'size.min' => 'Quantidade minima de caracteres: 3',
-            'size.max' => 'Quantidade maxima de caracteres: 100',
-            'user_id.required' => 'o campo user_id deve ser preenchido'
+            'name.required' => 'Campo obrigatório',
+            'name.min' => 'Deve conter mais de 3 caracteres',
+            'name.max' => 'Deve conter menos de 300 caracteres',
+
+            'size.required' => 'Campo obrigatório',
+            'size.min' => 'Deve conter mais de 3 caracters',
+            'size.max' => 'Deve conter menos de 100 caracateres',
+
+            'path.required' => 'Campo obrigatório',
+            'path.min' => 'Deve conter mais de 50 caracteres',
+            'path.max' => 'Deve conter menos de 180 caracteres',
+
+            'hour_backup.required' => 'Campo obrigatório',
+            'clinic_id.required' => 'Campo obrigatório',
         ];
     }
 }

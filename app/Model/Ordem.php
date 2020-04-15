@@ -11,7 +11,9 @@ class Ordem extends Model
     use Notifiable;
 
     protected $fillable = [
-        'user_id',
+        'code',
+        'admin_id',
+        'clinic_id',
         'problema',
         'solucao',
         'avaliacao',

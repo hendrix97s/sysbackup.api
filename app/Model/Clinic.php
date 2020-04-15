@@ -5,17 +5,17 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Backup extends Model
+class Clinic extends Model
 {
     //
     use Notifiable;
 
     protected $fillable = [
         'name',
-        'size',
-        'path',
-        'hour_backup',
-        'clinic_id'
+        'cnpj',
+        'expert',
+        'email',
+        'adress_id',
+        'status'
     ];
 }
-
