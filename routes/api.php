@@ -3,36 +3,39 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
+// BACKUP
 Route::prefix('/v1')->namespace('Dashboard')->name('backup.')->group(function(){
     Route::post('/backup', 'BackupController@store')->name('store');
     Route::put('/backup/{id}','BackupController@update')->name('update');
     Route::delete('/backup/{id}','BackupController@delete')->name('delete');
-    Route::get('/backups/{user_id}','BackupController@get_all_backup')->name('get.all');
-    Route::get('/backup/{id}','BackupController@get_backup')->name('get');
+    Route::get('/backups/{user_id}','BackupController@get_all')->name('get.all');
+    Route::get('/backup/{id}','BackupController@get')->name('get');
 });
 
-
+// ORDEM
 Route::prefix('/v1')->namespace('Dashboard')->name('ordem.')->group(function(){
     Route::post('/ordem','OrdemController@store')->name('store');
     Route::put('/ordem/{id}', 'OrdemController@update')->name('update');
     Route::delete('/ordem/{id}', 'OrdemController@delete')->name('delete');
-    Route::get('/ordens/{user_id}','OrdemController@get_all_ordem')->name('get.all');
-    Route::get('/ordem/{id}','OrdemController@get_ordem')->name('get');
+    Route::get('/ordens/{user_id}','OrdemController@get')->name('get.all');
+    Route::get('/ordem/{id}','OrdemController@get')->name('get');
+});
+
+//CLINIC
+Route::prefix('/v1')->namespace('Dashboard')->name('clinic.')->group(function(){
+    Route::post('/clinic','ClinicController@store')->name('store');
+    Route::put('/clinic/{id?}', 'ClinicController@update')->name('update');
+    Route::delete('/clinic/{id?}', 'ClinicController@delete')->name('delete');
+    Route::get('/clinic/{id?}','ClinicController@get')->name('get');
+    Route::get('/clinics','ClinicController@get_all')->name('get.all');
+});
+// ADMIN
+
+Route::prefix('/v1')->namespace('Dashboard')->name('admin.')->group(function(){
+    Route::post('/admin','AdminController@store')->name('store');
+    Route::put('/admin/{id}', 'AdminController@update')->name('update');
+    Route::delete('/admin/{id}', 'AdminController@delete')->name('delete');
+    Route::get('/admin/{id}','AdminController@get')->name('get');
+    Route::get('/admins','AdminController@get_all')->name('get.all');
 });
 

@@ -25,17 +25,17 @@ class AdminFormRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|max:3|min:100',
-            'email' => 'unique:email|required|max:3|min:100'
+            'name' => 'required|min:3|max:100',
+            'email' => 'unique:admins|required|min:3|max:100'
         ];
     }
 
     public function messages()
     {
         return [
-            'name.reqired' => 'Campo obrigatório!',
+            'name.required' => 'Campo obrigatório!',
             'name.min' => 'Deve conter mais de 3 caracteres',
-            'name.max' => 'Deve conter mais de 100 caracteres',
+            'name.max' => 'Deve conter menos de 100 caracteres',
 
             'email.required' => 'Preenchimento obrigatório',
             'email.unique' => 'Esse e-mail já existe!',

@@ -25,16 +25,17 @@ class BackupController extends Controller
 
             try {
                 $result = $this->backup->create([
-                        "name"      => $this->request->name,
-                        "size"      => $this->request->size,
-                        "user_id"   => $this->request->user_id
+                        "name"          => $this->request->name,
+                        "size"          => $this->request->size,
+                        "path"          => $this->request->path,
+                        "hour_backup"   => $this->request->hour_backup,
+                        "clinic_id"     => $this->request->clinic_id
                 ]);
 
-                return Message::msg($result,201);
+                return Message::msg(201, null);
                 
             } catch (\Throwable $th) {
-                $error = ["error" => $th->getMessage()];
-                return Message::msg($error, 500) ;
+                return Message::msg(500, $th->getMessage()) ;
             }
     }
 
@@ -43,63 +44,57 @@ class BackupController extends Controller
 
         try {
             //code...
-            
             $this->request = $request;
             $data = [
                 "name"      => $this->request->name,
                 "size"      => $this->request->size,
-                "user_id"   => $this->request->user_id
+                "path"          => $this->request->path,
+                "hour_backup"   => $this->request->hour_backup,
+                "clinic_id"     => $this->request->clinic_id
             ];
 
-            if($this->backup->find($id_backup)){
-                $result = $this->backup
-                ->find($id_backup)
-                ->update($data);
-                return Message::msg(['success' => 'atualizado com sucesso!'], 200);
+            $backup = $this->backup->find($id_backup);
+            if($backup){
+                $backup->update($data);
+                return Message::msg(202, null);
             }else{
-                $result = $this->backup->create($data);
-                return Message::msg($result, 201);
+                $this->backup->create($data);
+                return Message::msg(201, null);
             }
-            
 
         } catch (\Throwable $th) {
-
-            $error = ["error" => $th->getMessage()];
-            return Message::msg($error, 500);
+            return Message::msg(500, $th->getMessage());
         }
     }
 
     public function delete($id_backup)
     {
         try {
-             if($this->backup->find($id_backup)){
-                $this->backup->find($id_backup)->delete();
-                 return Message::msg(['message'=>'backup deletado'],200);
+            $backup = $this->backup->find($id_backup);
+             if($backup){
+                $backup->delete();
+                 return Message::msg(202, null);
              }else{
-                 return Message::msg(['message'=>'registro inexistente'],404);
+                 return Message::msg(404, null);
              }
 
         } catch (\Throwable $th) {
-            $error = ["error" => $th->getMessage()];
-            return Message::msg($error,500);
+            return Message::msg(500, $th->getMessage());
         }
     }
 
-    public function get_backup($id)
+    public function get($id)
     {
         if($this->backup->find($id)){
-            $result = $this->backup->find($id)->get();
-            return Message::msg($result, 200);
+            return Message::msg(302, $this->backup->find($id)->get());
         }else{
-
-            return Message::msg(['message'=>'registro inexistente'], 404);
+            return Message::msg(404, null);
         }
     }
 
-    public function get_all_backup($user_id)
+    public function get_all($clinic_id)
     {
-        $result = $this->backup->where('user_id','=',$user_id)->get();
-        return Message::msg($result, 200);
+        return Message::msg(302, $this->backup->where('clinic_id','=',$clinic_id)->get());
     }
 
 

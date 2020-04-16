@@ -28,8 +28,7 @@ class ClinicFormRequest extends FormRequest
             'name' => 'required|max:100|min:3',
             'cnpj' => 'required|max:18|min:18',
             'expert' => 'required|min:5|max:100',
-            'email' => 'unique:email|required|min:10|max:100',
-            'adress_id' => 'required',
+            'email' => 'unique:clinics|required|min:10|max:100',
             'status' => 'required'
         ];
     }

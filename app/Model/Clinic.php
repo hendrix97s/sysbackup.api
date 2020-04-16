@@ -15,7 +15,6 @@ class Clinic extends Model
         'cnpj',
         'expert',
         'email',
-        'adress_id',
         'status'
     ];
 }

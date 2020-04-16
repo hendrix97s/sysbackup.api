@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\Message;
 use App\Http\Requests\Dashboard\OrdemFormRequest;
 use App\Model\Ordem;
-use Illuminate\Http\Request;
 
 class OrdemController extends Controller
 {
     //
-    private $request;
     private $ordemService;
 
     public function __construct(Ordem $ordemService)
@@ -22,17 +20,18 @@ class OrdemController extends Controller
     public function store(OrdemFormRequest $request)
     {
         try {
-
-            $data = [
-                'user_id'       => $request->user_id,
+             $os = $this->ordemService;
+             $data = [
+                'admin_id'      => $request->admin_id,
+                'clinic_id'     => $request->clinic_id,
                 'problema'      => $request->problema,
                 'solucao'       => $request->solucao,
                 'avaliacao'     => $request->avaliacao,
                 'feedback'      => $request->feedback,
                 'type'          => $request->type
             ];
-            $result = $this->ordemService->create($data);
 
+            $result = $os->create($data);
             return Message::msg($result,201);
         } catch (\Throwable $th) {
 
@@ -44,14 +43,13 @@ class OrdemController extends Controller
     public function update($id, OrdemFormRequest $request)
     {
         try {
-            $this->request = $request;
+            $request;
             $data = [
-                'user_id'       => $this->request->user_id,
-                'problema'      => $this->request->problema,
-                'solucao'       => $this->request->solucao,
-                'avaliacao'     => $this->request->avaliacao,
-                'feedback'      => $this->request->feedback,
-                'type'          => $this->request->type
+                'problema'      => $request->problema,
+                'solucao'       => $request->solucao,
+                'avaliacao'     => $request->avaliacao,
+                'feedback'      => $request->feedback,
+                'type'          => $request->type
             ];
 
             if($this->ordemService->find($id)){
@@ -87,7 +85,7 @@ class OrdemController extends Controller
         }
     }
 
-    public function get_ordem($ordem_id)
+    public function get($ordem_id)
     {
         try {
             $os = $this->ordemService->find($ordem_id);
@@ -102,7 +100,7 @@ class OrdemController extends Controller
         }
     }
 
-    public function get_all_ordem($user_id)
+    public function get_all($user_id)
     {
         try {
             $result = $this->ordemService

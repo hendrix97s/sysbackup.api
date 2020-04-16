@@ -15,12 +15,9 @@ class UserSeeder extends Seeder
     {
         //
         DB::table('users')->insert([
-            'adress_id' => '1',
-            'name' => 'Owner',
-            'email' => 'owner@teste.com',
+            'name' => 'Luiz Felipe',
+            'email' => 'admin@teste.com',
             'password' => Hash::make('123456789'),
-            'cnpj' => '13.342.493/0001-00',
-            'type' => 'owner'
         ]);
     }
 }

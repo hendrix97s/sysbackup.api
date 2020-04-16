@@ -16,7 +16,7 @@ class BackupFormRequest extends FormRequest
         return [
             'name'  => 'required|min:3|max:300',
             'size'  => 'required|min:3|max:100',
-            'path'  => 'required|min:50|max:180',
+            'path'  => 'required|min:5|max:180',
             'hour_backup'  => 'required',
             'clinic_id' => 'required'
         ];

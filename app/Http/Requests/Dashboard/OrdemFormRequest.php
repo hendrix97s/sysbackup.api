@@ -24,7 +24,6 @@ class OrdemFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'unique:ordens',
             'admin_id' => 'required',
             'clinic_id' => 'required',
             'problema' => 'required|min:10|max:300',
@@ -38,7 +37,6 @@ class OrdemFormRequest extends FormRequest
     public function messages()
     {
         return  [
-            'code.unique' => 'Codigo já existente',
             'admin_id.required' => 'Campo obrigatório!',
             'clinic_id.required' => 'Campo obrigatório!',
             'problema.required' => 'Campo obrigatório',

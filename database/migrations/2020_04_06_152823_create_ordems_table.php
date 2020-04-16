@@ -15,7 +15,6 @@ class CreateOrdemsTable extends Migration
     {
         Schema::create('ordems', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('code')->unique();
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->unsignedBigInteger('clinic_id');
