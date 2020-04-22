@@ -28,7 +28,7 @@ class OrdemFormRequest extends FormRequest
             'clinic_id' => 'required',
             'problema' => 'required|min:10|max:300',
             'solucao' => 'required|min:10|max:300',
-            'avaliacao' => 'required|min:10|max:300',
+            'avaliacao' => 'required|min:3|max:50',
             'feedback' => 'required|min:10|max:300',
             'type' => 'required|min:3|max:10'
         ];

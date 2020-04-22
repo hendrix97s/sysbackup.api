@@ -20,7 +20,7 @@ class CreateBackupsTable extends Migration
             $table->string('path');
             $table->string('hour_backup');
             $table->unsignedBigInteger('clinic_id');
-            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('cascade');
+            $table->foreign('clinic_id')->references('id')->on('clinics');
             $table->timestamps();
         });
     }

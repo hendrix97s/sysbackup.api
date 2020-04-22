@@ -32,11 +32,9 @@ class OrdemController extends Controller
             ];
 
             $result = $os->create($data);
-            return Message::msg($result,201);
+            return Message::msg(201,$result);
         } catch (\Throwable $th) {
-
-            $error = ["error" => $th->getMessage()];
-            return Message::msg($error, 500);
+            return Message::msg(500, $th->getMessage());
         }
     }
     
@@ -54,18 +52,14 @@ class OrdemController extends Controller
 
             if($this->ordemService->find($id)){
                 $result = $this->ordemService->find($id)->update($data);
-                return Message::msg(['message'=> 'Atualizado com sucesso!'], 200);
+                return Message::msg(200,null);
             }else{
-                $result = $this->ordemService->create($data);
-                return Message::msg($result, 201);
+                return Message::msg(404, null);
             }
-
-            
 
         } catch (\Throwable $th) {
 
-            $error = ["error" => $th->getMessage()];
-            return Message::msg($error, 500);
+            return Message::msg(500, $th->getMessage());
         }
     }
 
@@ -75,13 +69,12 @@ class OrdemController extends Controller
             $os = $this->ordemService->find($id); 
             if($os){
                 $os->delete();
-                return Message::msg(['message'=>'deletado'],200);
+                return Message::msg(200,null);
             }else{
-                return Message::msg(['message'=>'not found'],404);
+                return Message::msg(404,null);
             }
         } catch (\Throwable $th) {
-            $error = ["error" => $th->getMessage()];
-            return Message::msg($error, 500);
+            return Message::msg(500, $th->getMessage());
         }
     }
 
@@ -90,13 +83,12 @@ class OrdemController extends Controller
         try {
             $os = $this->ordemService->find($ordem_id);
             if($os){
-                return Message::msg($os,200);
+                return Message::msg(203, $os);
             }else{
-                return Message::msg(['message'=>'not found'],404);
+                return Message::msg(404, null);
             }
         } catch (\Throwable $th) {
-            $error = ["error" => $th->getMessage()];
-            return Message::msg($error, 500);
+            return Message::msg(500, $th->getMessage());
         }
     }
 
@@ -107,11 +99,10 @@ class OrdemController extends Controller
             ->where('user_id', '=', $user_id)
             ->get();
 
-            return Message::msg($result, 200);
+            return Message::msg(203, $result);
         } catch (\Throwable $th) {
             
-            $error = ["error" => $th->getMessage()];
-            return Message::msg($error, 500);
+            return Message::msg(500, $th->getMessage());
         }
         
     }

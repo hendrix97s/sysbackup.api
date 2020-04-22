@@ -18,13 +18,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::middleware('auth')->prefix('dashboard')->namespace('Dashboard')->name('dash.')->group(function(){
+    Route::post('/key', 'UserController@key')->name('key.generate');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')->get('/register','Auth\RegisterController@showRegistrationForm')->name('register');
+Route::middleware('auth')->post('/register','Auth\RegisterController@register')->name('register');

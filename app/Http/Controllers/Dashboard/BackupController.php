@@ -32,14 +32,14 @@ class BackupController extends Controller
                         "clinic_id"     => $this->request->clinic_id
                 ]);
 
-                return Message::msg(201, null);
+                return Message::msg(201, $result);
                 
             } catch (\Throwable $th) {
                 return Message::msg(500, $th->getMessage()) ;
             }
     }
 
-    public function update($id_backup, BackupFormRequest $request)
+    public function update($id_backup, Request $request)
     {
 
         try {
@@ -58,8 +58,7 @@ class BackupController extends Controller
                 $backup->update($data);
                 return Message::msg(202, null);
             }else{
-                $this->backup->create($data);
-                return Message::msg(201, null);
+                return Message::msg(404, null);
             }
 
         } catch (\Throwable $th) {
@@ -86,7 +85,7 @@ class BackupController extends Controller
     public function get($id)
     {
         if($this->backup->find($id)){
-            return Message::msg(302, $this->backup->find($id)->get());
+            return Message::msg(302, $this->backup->find($id));
         }else{
             return Message::msg(404, null);
         }
