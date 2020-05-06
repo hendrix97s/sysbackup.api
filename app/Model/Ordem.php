@@ -13,10 +13,14 @@ class Ordem extends Model
     protected $fillable = [
         'admin_id',
         'clinic_id',
+        'dia',
+        'mes',
+        'ano',
         'problema',
         'solucao',
         'avaliacao',
         'feedback',
-        'type'
+        'type',
+        'status'
     ];
 }

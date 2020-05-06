@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<dashboard-component></da-component>
+<dashboard-component></dashboard-component>
 @endsection
+ 

@@ -9,7 +9,7 @@ class Message
     {
         switch ($status) {
             case 200:
-                return response()->json(['message' => 'ok'], $status);
+                return response()->json($data, $status);
                 break;
 
             case 201:
@@ -25,7 +25,8 @@ class Message
                 break;
 
             case 302:
-                return response()->json($data, $status);
+                // return response()->json($data, $status);
+                // so pode ser usado quando a um deslocamento de url
                 break;
 
             case 404:

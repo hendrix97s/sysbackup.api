@@ -28,9 +28,10 @@ class OrdemFormRequest extends FormRequest
             'clinic_id' => 'required',
             'problema' => 'required|min:10|max:300',
             'solucao' => 'required|min:10|max:300',
-            'avaliacao' => 'required|min:3|max:50',
+            // 'avaliacao' => 'required|min:3|max:50',
             'feedback' => 'required|min:10|max:300',
-            'type' => 'required|min:3|max:10'
+            'type' => 'required|min:3|max:10',
+            'status' => 'required'
         ];
     }
 
@@ -47,7 +48,8 @@ class OrdemFormRequest extends FormRequest
             'solucao.max' => 'Deve conter mais de 300 caracteres',
             'type.required' => 'Campo obrigatório',
             'type.min' => 'Deve conter mais de 3 caracteres',
-            'type.max' => 'Deve conter menos de 10 caracteres'
+            'type.max' => 'Deve conter menos de 10 caracteres',
+            'status.required' => 'Campo obrigatório',
         ];
     }
 }

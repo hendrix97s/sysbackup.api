@@ -15,7 +15,7 @@ Route::middleware('auth:api')->prefix('/v1')->namespace('Dashboard')->name('orde
     Route::post('/ordem','OrdemController@store')->name('store');
     Route::put('/ordem/{id?}', 'OrdemController@update')->name('update');
     Route::delete('/ordem/{id}', 'OrdemController@delete')->name('delete');
-    Route::get('/ordens/{user_id?}','OrdemController@get_all')->name('get.all');
+    Route::get('/ordens/{clinic_id?}','OrdemController@get_all')->name('get.all');
     Route::get('/ordem/{id?}','OrdemController@get')->name('get');
 });
 

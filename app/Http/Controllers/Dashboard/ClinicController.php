@@ -99,7 +99,6 @@ class ClinicController extends Controller
         }else{
             return Message::msg(404,null);  
         }
-        
     }
 
     public function delete($id)
@@ -118,13 +117,10 @@ class ClinicController extends Controller
         } catch (\Throwable $th) {
             return Message::msg(500, $th->getMessage());
         }
-        
-
     }
 
     public function get($id  = null)
     {
-
         if($id == null){
             return Message::msg(404, null);
         }else{
@@ -133,19 +129,16 @@ class ClinicController extends Controller
             if ($clinic and $adress) {
                 $clinic = $clinic->toArray();
                 $adress = $adress->toArray();
-                // dd($clinic);
                 $clinic_adress = array_merge($clinic, ['adress' => $adress]);
-                return Message::msg(302, $clinic_adress);
+                return Message::msg(200, $clinic_adress);
             } else {
                 return Message::msg(404, null);
             }
         }
-        
     }
 
     public function get_all()
     {
-
         $clinics = $this->clinic->get();
         $clinic_adress = [];
         foreach ($clinics as $key => $value) {
