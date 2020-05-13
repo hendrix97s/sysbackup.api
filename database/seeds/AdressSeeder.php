@@ -15,11 +15,11 @@ class AdressSeeder extends Seeder
         //
         
         DB::table('adresses')->insert([
-            'rua' => 'fausto silva',
+            'rua' => 'Avenida Luiz Carlos Tunes',
             'cidade' => 'Araras',
             'uf' => 'SP',
-            'cep' => '13.600.000',
-            'numero' => '330',
+            'cep' => '13.606.536',
+            'numero' => '4375',
             'complemento' => 'n/a',
             'contato' => '19 99958-3179'
         ]);

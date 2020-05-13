@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
         echo "\n";
         DB::table('users')->insert([
             'name' => 'Luiz Felipe',
-            'email' => 'admin@teste.com',
-            'password' => Hash::make('123456789'),
+            'email' => 'lf.system@outlook.com',
+            'password' => Hash::make('Felipe@11041993'),
             'api_token' => hash('sha256',$token)
         ]);
     }
