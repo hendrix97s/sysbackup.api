@@ -3,9 +3,10 @@ use Illuminate\Support\Facades\Route;
 
 // BACKUP
 Route::middleware('auth:api')->prefix('/v1')->namespace('Dashboard')->name('backup.')->group(function(){
-    Route::post('/backup', 'BackupController@store')->name('store');
+    Route::post('/backup/{client?}', 'BackupController@upload')->name('upload');
     // Route::put('/backup/{id?}','BackupController@update')->name('update');
-    // Route::delete('/backup/{id?}','BackupController@delete')->name('delete');
+    Route::delete('/backup/{id?}','BackupController@delete')->name('delete');
+    Route::get('/backup/download/{id?}','BackupController@download')->name('download');
     Route::get('/backups/{user_id?}','BackupController@get_all')->name('get.all');
     Route::get('/backup/{id?}','BackupController@get')->name('get');
 });

@@ -5,74 +5,63 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\Message;
 use Illuminate\Http\Request;
-use App\Http\Requests\Dashboard\BackupFormRequest;
 use App\Model\Backup;
+use Illuminate\Support\Facades\Storage;
 
 class BackupController extends Controller
 {
     private $request;
     private $backup;
 
-    public function __construct(Backup $backup)
+    public function __construct(Backup $backup, Request $request)
     {
-        
+        $this->request = $request;
         $this->backup = $backup;
     }
 
-    public function store(BackupFormRequest $request)
+    public function upload()
     {
-            $this->request = $request;
 
             try {
-                $result = $this->backup->create([
-                        "name"          => $this->request->name,
-                        "size"          => $this->request->size,
-                        "path"          => $this->request->path,
-                        "hour_backup"   => $this->request->hour_backup,
-                        "clinic_id"     => $this->request->clinic_id
-                ]);
+                $request = $this->request;
+                $id = $request->clinic_id;
 
-                return Message::msg(201, $result);
+                $upload = $request->file->storeAs(
+                    'local', $id."/".$request->file->getClientOriginalName()
+                );
+
+                if($upload){
+                    $result = $this->backup->create([
+                            "name"          => $request->file->getClientOriginalName(),
+                            "size"          => Storage::size($upload),
+                            "path"          => "local/$id/".$request->file->getClientOriginalName(),
+                            "hour_backup"   => date('h:i'),
+                            "clinic_id"     => $id
+                    ]);
+
+                    return Message::msg(201, ['data'=>$result]);
+                }
                 
             } catch (\Throwable $th) {
                 return Message::msg(500, $th->getMessage()) ;
             }
     }
 
-    public function update($id_backup, Request $request)
+    public function download($backup_id)
     {
 
-        try {
-            //code...
-            $this->request = $request;
-            $data = [
-                "name"      => $this->request->name,
-                "size"      => $this->request->size,
-                "path"          => $this->request->path,
-                "hour_backup"   => $this->request->hour_backup,
-                "clinic_id"     => $this->request->clinic_id
-            ];
-
-            $backup = $this->backup->find($id_backup);
-            if($backup){
-                $backup->update($data);
-                return Message::msg(202, null);
-            }else{
-                return Message::msg(404, null);
-            }
-
-        } catch (\Throwable $th) {
-            return Message::msg(500, $th->getMessage());
-        }
+        $backup = $this->backup->find($backup_id);
+        return Storage::download($backup->path);
     }
 
-    public function delete($id_backup)
+    public function delete($backup_id)
     {
         try {
-            $backup = $this->backup->find($id_backup);
+            $backup = $this->backup->find($backup_id);
              if($backup){
                 $backup->delete();
-                 return Message::msg(202, null);
+                Storage::delete($backup->path);
+                return Message::msg(200,['message'=>'arquivo deletado com sucesso.']);
              }else{
                  return Message::msg(404, null);
              }
@@ -82,10 +71,10 @@ class BackupController extends Controller
         }
     }
 
-    public function get($id)
+    public function get($backup_id)
     {
-        if($this->backup->find($id)){
-            return Message::msg(302, $this->backup->find($id));
+        if($this->backup->find($backup_id)){
+            return Message::msg(200, $this->backup->find($backup_id));
         }else{
             return Message::msg(404, null);
         }
@@ -93,8 +82,6 @@ class BackupController extends Controller
 
     public function get_all($clinic_id)
     {
-        return Message::msg(302, $this->backup->where('clinic_id','=',$clinic_id)->get());
+        return Message::msg(200, ["data" => $this->backup->where('clinic_id','=',$clinic_id)->get()]);
     }
-
-
 }
